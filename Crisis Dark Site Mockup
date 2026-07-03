@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KATINAT — Trung tâm Thông tin Khủng hoảng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#24261F;
+    --cream:#F6F1E6;
+    --pine:#16342A;
+    --pine-light:#25493B;
+    --sage:#8A9C82;
+    --sage-dim:#DDE3D6;
+    --rust:#B5551D;
+    --rust-light:#F3E2D3;
+    --paper:#FFFDF8;
+    --line:#DDD5C2;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    color:var(--pine);
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  a{color:var(--pine);}
+
+  /* Status strip */
+  .status-strip{
+    background:var(--rust);
+    color:#fff;
+    padding:9px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+  .status-dot{
+    width:8px;height:8px;border-radius:50%;
+    background:#fff;
+    box-shadow:0 0 0 0 rgba(255,255,255,0.7);
+    animation:pulse 2s infinite;
+    flex-shrink:0;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(255,255,255,0.55);}
+    70%{box-shadow:0 0 0 8px rgba(255,255,255,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,255,255,0);}
+  }
+
+  /* Header */
+  header{
+    background:var(--pine);
+    color:var(--cream);
+    padding:34px 24px 30px;
+  }
+  .header-inner{
+    max-width:880px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .wordmark{
+    font-family:'Fraunces',serif;
+    font-size:28px;
+    font-weight:600;
+    color:#fff;
+    letter-spacing:0.01em;
+  }
+  .wordmark span{color:var(--sage);}
+  .header-sub{
+    font-size:13px;
+    color:var(--sage-dim);
+    margin-top:6px;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .last-updated{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--sage-dim);
+    text-align:right;
+  }
+
+  main{
+    max-width:880px;
+    margin:0 auto;
+    padding:0 24px 80px;
+  }
+
+  /* Hero statement */
+  .statement-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-left:4px solid var(--rust);
+    border-radius:2px;
+    padding:40px 40px 36px;
+    margin-top:-28px;
+    box-shadow:0 8px 30px -18px rgba(22,52,42,0.35);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--rust);
+    margin-bottom:14px;
+    display:block;
+  }
+  .statement-card h1{
+    font-size:30px;
+    line-height:1.25;
+    margin-bottom:18px;
+  }
+  .statement-meta{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:#6b6a5e;
+    margin-bottom:22px;
+    padding-bottom:22px;
+    border-bottom:1px solid var(--line);
+  }
+  .statement-body p{
+    font-size:16px;
+    color:#3a3a30;
+    margin:0 0 16px;
+  }
+  .statement-body p:last-child{margin-bottom:0;}
+  .statement-body strong{color:var(--pine);}
+  .placeholder{
+    background:var(--rust-light);
+    color:var(--rust);
+    padding:1px 6px;
+    border-radius:3px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.88em;
+  }
+
+  /* Section headers */
+  .section{margin-top:56px;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:22px;
+  }
+  .section-head h2{font-size:21px;}
+  .section-num{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--sage);
+    letter-spacing:0.05em;
+  }
+
+  /* Timeline */
+  .timeline{
+    border-left:2px solid var(--line);
+    margin-left:6px;
+    padding-left:28px;
+  }
+  .timeline-item{
+    position:relative;
+    padding-bottom:26px;
+  }
+  .timeline-item:last-child{padding-bottom:0;}
+  .timeline-item::before{
+    content:'';
+    position:absolute;
+    left:-33px;
+    top:5px;
+    width:10px;height:10px;
+    border-radius:50%;
+    background:var(--pine);
+    border:2px solid var(--cream);
+  }
+  .timeline-item.is-active::before{
+    background:var(--rust);
+  }
+  .timeline-time{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--sage);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    display:block;
+    margin-bottom:4px;
+  }
+  .timeline-item h3{
+    font-size:16px;
+    margin-bottom:5px;
+  }
+  .timeline-item p{
+    font-size:14.5px;
+    color:#4c4b40;
+    margin:0;
+  }
+
+  /* FAQ */
+  .faq-item{
+    border-bottom:1px solid var(--line);
+  }
+  .faq-item summary{
+    cursor:pointer;
+    padding:17px 2px;
+    font-family:'Fraunces',serif;
+    font-size:16px;
+    color:var(--pine);
+    font-weight:500;
+    list-style:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{
+    content:'+';
+    font-family:'IBM Plex Mono',monospace;
+    font-size:20px;
+    color:var(--sage);
+    flex-shrink:0;
+    transition:transform 0.2s ease;
+  }
+  .faq-item[open] summary::after{
+    transform:rotate(45deg);
+  }
+  .faq-item p{
+    font-size:14.5px;
+    color:#4c4b40;
+    padding:0 2px 20px;
+    margin:0;
+  }
+
+  /* Contact grid */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+  @media(max-width:600px){
+    .contact-grid{grid-template-columns:1fr;}
+  }
+  .contact-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    padding:20px 22px;
+  }
+  .contact-card .role{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--sage);
+    display:block;
+    margin-bottom:8px;
+  }
+  .contact-card h3{
+    font-size:16px;
+    margin-bottom:6px;
+  }
+  .contact-card p{
+    font-size:13.5px;
+    color:#4c4b40;
+    margin:0;
+  }
+
+  /* Press kit */
+  .press-kit{
+    background:var(--pine);
+    color:var(--cream);
+    padding:32px 36px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .press-kit h3{color:#fff; font-size:19px; margin-bottom:6px;}
+  .press-kit p{
+    color:var(--sage-dim);
+    font-size:13.5px;
+    margin:0;
+    max-width:400px;
+  }
+  .btn{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    background:var(--rust);
+    color:#fff;
+    border:none;
+    padding:13px 22px;
+    cursor:pointer;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .btn:hover{background:#9a4816;}
+
+  /* Footer */
+  footer{
+    border-top:1px solid var(--line);
+    margin-top:70px;
+    padding:26px 24px 40px;
+  }
+  .footer-inner{
+    max-width:880px;
+    margin:0 auto;
+    font-size:12px;
+    color:#8c8b7e;
+    line-height:1.7;
+  }
+  .footer-inner strong{color:#6b6a5e;}
+</style>
+</head>
+<body>
+
+  <div class="status-strip">
+    <span class="status-dot"></span>
+    TRẠNG THÁI: ĐANG XỬ LÝ KHỦNG HOẢNG — Cập nhật liên tục
+  </div>
+
+  <header>
+    <div class="header-inner">
+      <div>
+        <div class="wordmark">KATINAT<span>.</span></div>
+        <div class="header-sub">TRUNG TÂM THÔNG TIN KHỦNG HOẢNG</div>
+      </div>
+      <div class="last-updated">
+        CẬP NHẬT LẦN CUỐI<br>
+        <span style="color:#fff;">04/03/2024 — 16:40</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="statement-card">
+      <span class="eyebrow">Thông cáo chính thức</span>
+      <h1>KATINAT ghi nhận phản ánh về vệ sinh sản phẩm tại chi nhánh <span class="placeholder">[TÊN CHI NHÁNH]</span> và đang tiến hành xác minh</h1>
+      <div class="statement-meta">
+        <span>MÃ SỰ CỐ: <span class="placeholder">KTN-2024-000</span></span>
+        <span>NGUỒN: Incident Report Form — Phụ lục A</span>
+        <span>NGƯỜI PHÁT NGÔN: <span class="placeholder">[HỌ TÊN]</span>, PR Manager</span>
+      </div>
+      <div class="statement-body">
+        <p>Vào lúc <span class="placeholder">[GIỜ, NGÀY]</span>, KATINAT ghi nhận phản ánh từ khách hàng liên quan đến quy trình vệ sinh tại chi nhánh <span class="placeholder">[ĐỊA CHỈ CHI NHÁNH]</span>. Chúng tôi xem đây là vấn đề nghiêm trọng và đã ngay lập tức kích hoạt quy trình xác minh nội bộ.</p>
+        <p><strong>Các bước đã thực hiện:</strong> tạm ngưng hoạt động khu vực liên quan tại chi nhánh, cử đội ngũ giám sát khu vực trực tiếp kiểm tra, đồng thời liên hệ với khách hàng phản ánh để ghi nhận đầy đủ thông tin.</p>
+        <p>KATINAT cam kết công bố kết quả xác minh trong thời gian sớm nhất và sẽ cập nhật liên tục tại trang này. Mọi thắc mắc liên quan xin vui lòng liên hệ theo thông tin báo chí bên dưới, không suy đoán hoặc lan truyền thông tin chưa được xác nhận.</p>
+      </div>
+    </section>
+
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2>Nhật ký cập nhật</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item is-active">
+          <span class="timeline-time mono">04/03 — 16:40</span>
+          <h3>Đội giám sát hoàn tất kiểm tra ban đầu tại chi nhánh</h3>
+          <p>Kết quả kiểm tra sơ bộ đang được đối chiếu với quy trình SOP vệ sinh tiêu chuẩn. Thông tin chi tiết sẽ được công bố trong bản cập nhật tiếp theo.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-time mono">04/03 — 11:15</span>
+          <h3>Tạm ngưng khu vực pha chế liên quan tại chi nhánh</h3>
+          <p>KATINAT tạm ngưng hoạt động khu vực được phản ánh để phục vụ công tác kiểm tra, không ảnh hưởng đến các chi nhánh khác trong hệ thống.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-time mono">04/03 — 09:20</span>
+          <h3>Ghi nhận phản ánh, kích hoạt Crisis Management Team</h3>
+          <p>Incident Report Form được xử lý và CMT được kích hoạt theo quy trình tại Mục 2.3 của Kế hoạch Truyền thông Khủng hoảng.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2>Câu hỏi thường gặp</h2>
+      </div>
+
+      <details class="faq-item" open>
+        <summary>Sự việc này ảnh hưởng đến những chi nhánh nào?</summary>
+        <p>Hiện tại phản ánh chỉ liên quan đến chi nhánh <span class="placeholder">[TÊN CHI NHÁNH]</span>. KATINAT đang rà soát quy trình SOP tại các chi nhánh khác như một biện pháp phòng ngừa, và sẽ thông báo ngay nếu phát hiện vấn đề liên quan.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Khách hàng bị ảnh hưởng cần làm gì?</summary>
+        <p>Khách hàng đã mua sản phẩm tại chi nhánh nêu trên trong khoảng thời gian <span class="placeholder">[KHOẢNG THỜI GIAN]</span> có thể liên hệ hotline <span class="placeholder">[SỐ HOTLINE]</span> để được hỗ trợ trực tiếp.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Khi nào có kết quả xác minh chính thức?</summary>
+        <p>KATINAT dự kiến công bố kết quả xác minh trong vòng <span class="placeholder">[SỐ GIỜ/NGÀY]</span> kể từ thời điểm ghi nhận. Mọi cập nhật sẽ được đăng tại đúng trang này trước khi công bố trên các kênh khác.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Đây có phải sự cố xảy ra trên toàn hệ thống không?</summary>
+        <p>Chưa có căn cứ cho thấy đây là vấn đề mang tính hệ thống. KATINAT sẽ cập nhật minh bạch nếu phạm vi sự việc thay đổi trong quá trình xác minh.</p>
+      </details>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2>Đầu mối liên hệ</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <span class="role">Báo chí / Truyền thông</span>
+          <h3>Phòng PR — KATINAT</h3>
+          <p>media@katinat.vn<br><span class="placeholder">[SỐ ĐIỆN THOẠI]</span></p>
+        </div>
+        <div class="contact-card">
+          <span class="role">Khách hàng</span>
+          <h3>Hotline chăm sóc khách hàng</h3>
+          <p><span class="placeholder">[SỐ HOTLINE]</span><br>Hoạt động 8:00 – 22:00</p>
+        </div>
+        <div class="contact-card">
+          <span class="role">Cơ quan quản lý</span>
+          <h3>Ban An toàn Thực phẩm</h3>
+          <p>compliance@katinat.vn<br><span class="placeholder">[SỐ ĐIỆN THOẠI]</span></p>
+        </div>
+        <div class="contact-card">
+          <span class="role">Nội bộ</span>
+          <h3>Crisis Manager</h3>
+          <p><span class="placeholder">[HỌ TÊN]</span><br>Nội bộ — không công khai</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="press-kit">
+        <div>
+          <h3>Digital Press Kit</h3>
+          <p>Hình ảnh thương hiệu, thông tin nền về KATINAT và tài liệu tham khảo dành cho báo chí.</p>
+        </div>
+        <button class="btn">Tải xuống</button>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <strong>Lưu ý:</strong> Đây là trang thông tin khủng hoảng (crisis dark site) được kích hoạt khi có sự cố. Nội dung trên trang được KATINAT cập nhật trực tiếp và là nguồn thông tin chính thức duy nhất liên quan đến sự việc đang xử lý. KATINAT khuyến nghị khách hàng và báo chí tham khảo thông tin tại đây thay vì các nguồn chưa được xác thực.
+    </div>
+  </footer>
+
+</body>
+</html>
