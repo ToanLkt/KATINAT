@@ -9,15 +9,16 @@
 <style>
   :root{
     --ink:#24261F;
-    --cream:#F6F1E6;
-    --pine:#16342A;
+    --cream:#ffffff;
+    --pine:#104358;
     --pine-light:#25493B;
     --sage:#8A9C82;
-    --sage-dim:#DDE3D6;
-    --rust:#B5551D;
-    --rust-light:#F3E2D3;
-    --paper:#FFFDF8;
+    --sage-dim:#bd9268;
+    --rust:#e2903d;
+    --rust-light:#f7eeee;
+    --paper:#f7eeee;
     --line:#DDD5C2;
+    --page-max:min(1120px, calc(100vw - 48px));
   }
 
   *{box-sizing:border-box;}
@@ -60,6 +61,7 @@
     text-transform:uppercase;
   }
   .status-dot{
+    display: flex;
     width:8px;height:8px;border-radius:50%;
     background:#fff;
     box-shadow:0 0 0 0 rgba(255,255,255,0.7);
@@ -76,22 +78,22 @@
   header{
     background:var(--pine);
     color:var(--cream);
-    padding:34px 24px 30px;
+    padding-block:34px 30px;
   }
   .header-inner{
-    max-width:880px;
-    margin:0 auto;
+    width:var(--page-max);
+    margin-inline:auto;
     display:flex;
     justify-content:space-between;
     align-items:flex-end;
-    gap:20px;
+    gap:clamp(16px, 4vw, 40px);
     flex-wrap:wrap;
   }
   .wordmark{
     font-family:'Fraunces',serif;
     font-size:28px;
     font-weight:600;
-    color:#fff;
+    color:#bd9268;
     letter-spacing:0.01em;
   }
   .wordmark span{color:var(--sage);}
@@ -107,20 +109,29 @@
     color:var(--sage-dim);
     text-align:right;
   }
+  @media(max-width:560px){
+    .header-inner{
+      align-items:flex-start;
+    }
+    .last-updated{
+      text-align:left;
+    }
+  }
 
   main{
-    max-width:880px;
-    margin:0 auto;
-    padding:0 24px 80px;
+    width:var(--page-max);
+    margin-inline:auto;
+    padding-block:0 80px;
   }
 
   /* Hero statement */
   .statement-card{
+    width:100%;
     background:var(--paper);
     border:1px solid var(--line);
     border-left:4px solid var(--rust);
     border-radius:2px;
-    padding:40px 40px 36px;
+    padding:clamp(26px, 4vw, 40px);
     margin-top:-28px;
     box-shadow:0 8px 30px -18px rgba(22,52,42,0.35);
   }
@@ -149,6 +160,11 @@
     padding-bottom:22px;
     border-bottom:1px solid var(--line);
   }
+
+  .statement-meta > span:nth-child(3) {
+  flex-basis: 100%;
+}
+  
   .statement-body p{
     font-size:16px;
     color:#3a3a30;
@@ -163,6 +179,14 @@
     border-radius:3px;
     font-family:'IBM Plex Mono',monospace;
     font-size:0.88em;
+  }
+  a.placeholder{
+    text-decoration:none;
+    cursor:pointer;
+  }
+  a.placeholder:hover,
+  a.placeholder:focus{
+    text-decoration:underline;
   }
 
   /* Section headers */
@@ -330,11 +354,11 @@
   footer{
     border-top:1px solid var(--line);
     margin-top:70px;
-    padding:26px 24px 40px;
+    padding-block:26px 40px;
   }
   .footer-inner{
-    max-width:880px;
-    margin:0 auto;
+    width:var(--page-max);
+    margin-inline:auto;
     font-size:12px;
     color:#8c8b7e;
     line-height:1.7;
@@ -347,12 +371,13 @@
   <div class="status-strip">
     <span class="status-dot"></span>
     TRẠNG THÁI: ĐANG XỬ LÝ KHỦNG HOẢNG — Cập nhật liên tục
+    
   </div>
 
   <header>
     <div class="header-inner">
       <div>
-        <div class="wordmark">KATINAT<span>.</span></div>
+        <div class="wordmark">KATINAT<span></span></div>
         <div class="header-sub">TRUNG TÂM THÔNG TIN KHỦNG HOẢNG</div>
       </div>
       <div class="last-updated">
@@ -369,7 +394,8 @@
       <h1>KATINAT ghi nhận phản ánh về vệ sinh sản phẩm tại chi nhánh <span class="placeholder">[TÊN CHI NHÁNH]</span> và đang tiến hành xác minh</h1>
       <div class="statement-meta">
         <span>MÃ SỰ CỐ: <span class="placeholder">KTN-2024-000</span></span>
-        <span>NGUỒN: Incident Report Form — Phụ lục A</span>
+        <span>NGUỒN: <a class="placeholder" href="https://docs.google.com/document/d/16Ovk-G0fn0H5bvYtWnLjEcMzmA1_fUP5jKYwVgWtzmg/edit?tab=t.0#heading=h.5czvbogxhmfj" target="_blank" rel="noopener noreferrer">INCIDENT REPORT FORM
+</a></span>
         <span>NGƯỜI PHÁT NGÔN: <span class="placeholder">[HỌ TÊN]</span>, PR Manager</span>
       </div>
       <div class="statement-body">
